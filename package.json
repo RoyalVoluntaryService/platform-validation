@@ -1,7 +1,11 @@
 {
   "name": "@royal-voluntary-service/validation",
   "version": "0.0.1",
-  "description": "",
+  "description": "Royal Voluntary Service Validation Package",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
