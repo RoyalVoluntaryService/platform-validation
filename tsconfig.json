@@ -5,9 +5,11 @@
         "declaration": true,
         "rootDir": "src",
         "outDir": "dist",
-        "strict": true
+        "strict": true,
+        "incremental": true,
+        "esModuleInterop": true,
     },
     "include": [
-        "src/**/*"
+        "src"
     ]
 }

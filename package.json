@@ -1,14 +1,11 @@
 {
   "name": "@royal-voluntary-service/validation",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Royal Voluntary Service Validation Package",
   "private": false,
   "publishConfig": {
     "access": "public"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest --coverage",
@@ -34,6 +31,11 @@
       "types": "./dist/validations/opportunity/opportunityStatus.d.ts"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
