@@ -1,0 +1,58 @@
+{
+  "name": "@royal-voluntary-service/validation",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --coverage",
+    "prepublishOnly": "npm run build",
+    "db:pull": "prisma db pull",
+    "db:generate": "prisma generate"
+  },
+  "exports": {
+    "./opportunity/opportunityType": {
+      "import": "./dist/validations/opportunity/opportunityType.js",
+      "types": "./dist/validations/opportunity/opportunityType.d.ts"
+    },
+    "./opportunity/opportunityCause": {
+      "import": "./dist/validations/opportunity/opportunityCause.js",
+      "types": "./dist/validations/opportunity/opportunityCause.d.ts"
+    },
+    "./opportunity/opportunityCommitment": {
+      "import": "./dist/validations/opportunity/opportunityCommitment.js",
+      "types": "./dist/validations/opportunity/opportunityCommitment.d.ts"
+    },
+    "./opportunity/opportunityStatus": {
+      "import": "./dist/validations/opportunity/opportunityStatus.js",
+      "types": "./dist/validations/opportunity/opportunityStatus.d.ts"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
+  },
+  "packageManager": "pnpm@10.2.1+sha512.398035c7bd696d0ba0b10a688ed558285329d27ea994804a52bad9167d8e3a72bcb993f9699585d3ca25779ac64949ef422757a6c31102c12ab932e5cbe5cc92",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "prisma": "^6.4.1",
+    "ts-jest": "^29.2.6",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.4.1"
+  }
+}
