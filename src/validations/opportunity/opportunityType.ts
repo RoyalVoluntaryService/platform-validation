@@ -3,12 +3,7 @@ import { getAllHumanCase, toHumanString, toSentenceCase } from "../../utils/stri
 
 const DEFAULT_OPPORTUNITY_TYPE = OpportunityType.IN_PERSON;
 
-export const POSSIBLE_OPPORTUNITY_TYPES = [
-    // toSentenceCase(toHumanString(OpportunityType.IN_PERSON.toString())),
-    // toSentenceCase(toHumanString(OpportunityType.REMOTE.toString())),
-    "In Person",
-    "Remote",
-]
+export const POSSIBLE_OPPORTUNITY_TYPES = Object.values(OpportunityType).map(type => toSentenceCase(toHumanString(type)));
 
 export const validateOpportunityType = (type: string): boolean => {
     return Object.values(OpportunityType).map((val) => getAllHumanCase(val)).flat().includes(type)
