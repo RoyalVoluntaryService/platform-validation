@@ -15,7 +15,6 @@ export const validateOpportunityType = (type: string): boolean => {
 };
 
 export const validateOpportunityTypeForCSV = (type?: string | number | null) => {
-    console.log(POSSIBLE_OPPORTUNITY_TYPES)
     function toReturn() {
         return {
             level: "healing",
