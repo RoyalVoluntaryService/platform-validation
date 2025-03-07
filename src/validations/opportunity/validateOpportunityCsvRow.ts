@@ -2,7 +2,7 @@ import type { CsvValidatorImportValue, CsvValidatorResponse } from "../../types/
 import { validateOpportunityStatusForCSV } from "./opportunityStatus";
 import { validateOpportunityTypeForCSV } from "./opportunityType";
 
-export const validateDataAndReturnErrors = (
+export const validateCsvRowDataAndReturnErrors = (
     // title: string | null, 
     // description: string | null, 
     opportunityType: CsvValidatorImportValue,
