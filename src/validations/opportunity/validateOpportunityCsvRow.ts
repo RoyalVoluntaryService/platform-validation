@@ -1,8 +1,9 @@
 import type { CsvValidatorImportValue, CsvValidatorResponse } from "../../types/csvValidation";
+import { validateOpportunityCauseForCSV } from "./opportunityCause";
 import { validateOpportunityStatusForCSV } from "./opportunityStatus";
 import { validateOpportunityTypeForCSV } from "./opportunityType";
 
-export const validateCsvRowDataAndReturnErrors = (
+export const validateCsvRowDataAndReturnErrors = async (
     // title: string | null, 
     // description: string | null, 
     opportunityType: CsvValidatorImportValue,
@@ -30,7 +31,7 @@ export const validateCsvRowDataAndReturnErrors = (
     };
     const opportunityTypeValidator = validateOpportunityTypeForCSV(opportunityType)
     const opportunityStatusValidator = validateOpportunityStatusForCSV(status)
-    // const opportunityCauseValidator = validateOpportunityCauseForCSV(cause)
+    const opportunityCauseValidator = await validateOpportunityCauseForCSV(cause)
     // const opportunityCommitmentValidator = validateOpportunityCommitmentForCSV(commitment)
     if (opportunityTypeValidator !== null) {
         data.opportunityType = [opportunityTypeValidator]
@@ -38,9 +39,9 @@ export const validateCsvRowDataAndReturnErrors = (
     if (opportunityStatusValidator !== null) {
         data.status = [opportunityStatusValidator]
     }
-    // if (opportunityCauseValidator !== null) {
-    //     data.cause = [opportunityCauseValidator]
-    // }
+    if (opportunityCauseValidator !== null) {
+        data.cause = [opportunityCauseValidator]
+    }
     // if (opportunityCommitmentValidator !== null) {
     //     data.commitment = [opportunityCommitmentValidator]
     // }
