@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensure all history is available for standard-version
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -28,8 +30,17 @@ jobs:
       - name: Build package
         run: npm run build
 
+      - name: Bump version using standard-version
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          npm run release
+          git push --follow-tags origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: List dist contents (for debugging)
-        run: ls -la ./dist  # Verify dist folder contains the built files
+        run: ls -la ./dist
 
       - name: Publish to npm
         run: npm publish
