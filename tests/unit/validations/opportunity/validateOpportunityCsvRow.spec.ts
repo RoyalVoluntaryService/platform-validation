@@ -20,7 +20,7 @@ describe('validateDataAndReturnErrors', () => {
         ]);
         const result = await validateCsvRowDataAndReturnErrors(
             "In Person" as CsvValidatorImportValue,
-            "COMMITMENT" as CsvValidatorImportValue,
+            "Flexible" as CsvValidatorImportValue,
             "Animal Welfare" as CsvValidatorImportValue,
             "Active" as CsvValidatorImportValue
         );
@@ -34,7 +34,7 @@ describe('validateDataAndReturnErrors', () => {
         ]);
         const result = await validateCsvRowDataAndReturnErrors(
             "Something Else" as CsvValidatorImportValue,
-            "COMMITMENT" as CsvValidatorImportValue,
+            "Flexible" as CsvValidatorImportValue,
             "Animal Welfare" as CsvValidatorImportValue,
             "Active" as CsvValidatorImportValue
         );
@@ -48,7 +48,7 @@ describe('validateDataAndReturnErrors', () => {
         ]);
         const result = await validateCsvRowDataAndReturnErrors(
             "In Person" as CsvValidatorImportValue,
-            "COMMITMENT" as CsvValidatorImportValue,
+            "Regular" as CsvValidatorImportValue,
             "Animal Welfare" as CsvValidatorImportValue,
             "None" as CsvValidatorImportValue
         );
@@ -62,12 +62,24 @@ describe('validateDataAndReturnErrors', () => {
         ]);
         const result = await validateCsvRowDataAndReturnErrors(
             "In Person" as CsvValidatorImportValue,
-            "COMMITMENT" as CsvValidatorImportValue,
+            "Flexible" as CsvValidatorImportValue,
             "Not A Cause" as CsvValidatorImportValue,
             "Active" as CsvValidatorImportValue
         );
         expect(result).toHaveProperty('cause');
     });
 
-    // Add more tests as needed
+    it('should return errors for invalid opportunity commitment', async () => {
+        (prisma.cause.findMany as jest.Mock).mockResolvedValue([
+            { causeName: 'Animal Welfare' },
+            { causeName: 'Human Aid' }
+        ]);
+        const result = await validateCsvRowDataAndReturnErrors(
+            "In Person" as CsvValidatorImportValue,
+            "Never" as CsvValidatorImportValue,
+            "Animal Welfare" as CsvValidatorImportValue,
+            "Active" as CsvValidatorImportValue
+        );
+        expect(result).toHaveProperty('commitment');
+    });
 });
