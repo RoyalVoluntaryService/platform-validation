@@ -32,7 +32,6 @@ const syncLatestCauses = async () => {
 
 export const validateOpportunityCause = async (cause: string): Promise<boolean> => {
     await syncLatestCauses();
-    console.log("lastCauses", lastCauses)
     return lastCauses.includes(cause);
 };
 
@@ -50,7 +49,6 @@ export const validateOpportunityCauseForCSV = async (type?: string | number | nu
         return toReturn()
     }
     const isValidCase = await validateOpportunityCause(type)
-    console.log(type, isValidCase)
     if (!isValidCase) {
         return toReturn()
     }
