@@ -10,6 +10,7 @@
     "build": "tsc",
     "test": "jest --coverage",
     "prepublishOnly": "npm run build",
+    "release": "standard-version",
     "db:pull": "prisma db pull",
     "db:generate": "prisma generate"
   },
@@ -29,6 +30,10 @@
     "./opportunity/opportunityStatus": {
       "import": "./dist/validations/opportunity/opportunityStatus.js",
       "types": "./dist/validations/opportunity/opportunityStatus.d.ts"
+    },
+    "./opportunity/validateOpportunityCsvRow": {
+      "import": "./dist/validations/opportunity/validateOpportunityCsvRow.js",
+      "types": "./dist/validations/opportunity/validateOpportunityCsvRow.d.ts"
     }
   },
   "files": [
@@ -44,6 +49,7 @@
     "jest": "^29.7.0",
     "jest-html-reporter": "^4.0.1",
     "prisma": "^6.4.1",
+    "standard-version": "^9.5.0",
     "ts-jest": "^29.2.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
