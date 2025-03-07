@@ -11,6 +11,7 @@ module.exports = {
       },
     },
     coverageReporters: ['html', 'text-summary'],
+    collectCoverageFrom: ['src/**/*.ts'],
     reporters: [
       'default',
       [
@@ -22,4 +23,3 @@ module.exports = {
       ],
     ],
   };
-  
