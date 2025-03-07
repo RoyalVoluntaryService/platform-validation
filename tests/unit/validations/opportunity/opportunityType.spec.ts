@@ -1,10 +1,10 @@
 import { OpportunityType } from "@prisma/client";
 import { validateOpportunityType, validateOpportunityTypeForCSV } from "../../../../src/validations/opportunity/opportunityType";
-import { getAllHumanCase, toHumanString, toSentenceCase } from "../../../../src/utils/string";
+import { getAllValidCase, toHumanString, toSentenceCase } from "../../../../src/utils/string";
 
 // Remove the mocks for the utility functions
 // jest.mock("../../../../src/utils/string", () => ({
-//   getAllHumanCase: jest.fn(),
+//   getAllValidCase: jest.fn(),
 //   toHumanString: jest.fn(),
 //   toSentenceCase: jest.fn(),
 // }));
@@ -55,9 +55,24 @@ describe("validateOpportunityTypeForCSV", () => {
   });
 
   it("should return null when type is valid", () => {
-    const result = validateOpportunityTypeForCSV("In person");
-    expect(result).toBeNull();
+    const resultOne = validateOpportunityTypeForCSV("In person");
+    const resultTwo = validateOpportunityTypeForCSV("In Person");
+    const resultThree = validateOpportunityTypeForCSV("in person");
+    const resultFour = validateOpportunityTypeForCSV("IN PERSON");
+    const resultFive = validateOpportunityTypeForCSV("IN_PERSON");
+    const resultSix = validateOpportunityTypeForCSV("remote");
+    const resultSeven = validateOpportunityTypeForCSV("Remote");
+    const resultEight = validateOpportunityTypeForCSV("REMOTE");
+    expect(resultOne).toBeNull();
+    expect(resultTwo).toBeNull();
+    expect(resultThree).toBeNull();
+    expect(resultFour).toBeNull();
+    expect(resultFive).toBeNull();
+    expect(resultSix).toBeNull();
+    expect(resultSeven).toBeNull();
+    expect(resultEight).toBeNull();
   });
+  
 
   it("should return the correct error message when type is invalid", () => {
     const result = validateOpportunityTypeForCSV("Non-existent Type");

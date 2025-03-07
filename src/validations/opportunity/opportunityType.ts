@@ -1,13 +1,12 @@
 import { OpportunityType } from "@prisma/client";
-import { getAllHumanCase, toHumanString, toSentenceCase } from "../../utils/string";
+import { getAllValidCase, toHumanString, toSentenceCase } from "../../utils/string";
 
 const DEFAULT_OPPORTUNITY_TYPE = OpportunityType.IN_PERSON;
 
 export const POSSIBLE_OPPORTUNITY_TYPES = Object.values(OpportunityType).map(type => toSentenceCase(toHumanString(type)));
 
-export const validateOpportunityType = (type: string): boolean => {
-    return Object.values(OpportunityType).map((val) => getAllHumanCase(val)).flat().includes(type)
-};
+export const validateOpportunityType = (type: string): boolean => Object.values(OpportunityType).map((val) => getAllValidCase(val)).flat().includes(type)
+
 
 export const validateOpportunityTypeForCSV = (type?: string | number | null) => {
     function toReturn() {
