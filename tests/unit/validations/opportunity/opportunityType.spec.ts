@@ -1,6 +1,4 @@
-import { OpportunityType } from "@prisma/client";
 import { validateOpportunityType, validateOpportunityTypeForCSV } from "../../../../src/validations/opportunity/opportunityType";
-import { getAllValidCase, toHumanString, toSentenceCase } from "../../../../src/utils/string";
 
 // Remove the mocks for the utility functions
 // jest.mock("../../../../src/utils/string", () => ({
