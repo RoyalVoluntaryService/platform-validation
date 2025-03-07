@@ -29,7 +29,7 @@ describe('validateDataAndReturnErrors', () => {
             "CAUSE" as CsvValidatorImportValue,
             "None" as CsvValidatorImportValue
         );
-        expect(result).toHaveProperty('opportunityStatus');
+        expect(result).toHaveProperty('status');
     });
 
     // Add more tests as needed
