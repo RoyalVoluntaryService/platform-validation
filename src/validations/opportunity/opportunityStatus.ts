@@ -1,5 +1,28 @@
+import { RecordState } from "@prisma/client";
+import { getAllValidCase, toHumanString, toSentenceCase } from "../../utils/string";
 
-// Placeholder function for testing type output
-export const validateOpportunityStatus = (status: string): boolean => {
-    return ['type1', 'type2', 'type3'].includes(status);
+const DEFAULT_RECORD_STATE = RecordState.INACTIVE;
+
+export const POSSIBLE_RECORD_STATES = Object.values(RecordState).map(type => toSentenceCase(toHumanString(type)));
+
+export const validateOpportunityStatus = (type: string): boolean => Object.values(RecordState).map((val) => getAllValidCase(val)).flat().includes(type)
+
+
+export const validateOpportunityStatusForCSV = (type?: string | number | null) => {
+    function toReturn() {
+        return {
+            level: "healing",
+            message: "Opportunity Status should be one of: " + POSSIBLE_RECORD_STATES.join(', '),
+            newValue: toSentenceCase(toHumanString(DEFAULT_RECORD_STATE))
+        }
+    }
+    if (!type || typeof type === "number") {
+        return toReturn()
+    }
+    const isValidCase = validateOpportunityStatus(type)
+    if (!isValidCase) {
+        return toReturn()
+    }
+    return null
 };
+
