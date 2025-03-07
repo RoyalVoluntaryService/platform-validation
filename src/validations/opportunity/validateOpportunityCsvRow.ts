@@ -22,9 +22,9 @@ export const validateCsvRowDataAndReturnErrors = (
     // const isFullName = name.split(" ").length > 1;
     const data: {
         opportunityType?: [CsvValidatorResponse];
-        opportunityStatus?: [CsvValidatorResponse];
-        opportunityCause?: [CsvValidatorResponse];
-        opportunityCommitment?: [CsvValidatorResponse];
+        status?: [CsvValidatorResponse];
+        cause?: [CsvValidatorResponse];
+        commitment?: [CsvValidatorResponse];
     } = {
 
     };
@@ -36,13 +36,13 @@ export const validateCsvRowDataAndReturnErrors = (
         data.opportunityType = [opportunityTypeValidator]
     }
     if (opportunityStatusValidator !== null) {
-        data.opportunityStatus = [opportunityStatusValidator]
+        data.status = [opportunityStatusValidator]
     }
     // if (opportunityCauseValidator !== null) {
-    //     data.opportunityCause = [opportunityCauseValidator]
+    //     data.cause = [opportunityCauseValidator]
     // }
     // if (opportunityCommitmentValidator !== null) {
-    //     data.opportunityCommitment = [opportunityCommitmentValidator]
+    //     data.commitment = [opportunityCommitmentValidator]
     // }
     if (Object.keys(data).length !== 0) {
         return data;
