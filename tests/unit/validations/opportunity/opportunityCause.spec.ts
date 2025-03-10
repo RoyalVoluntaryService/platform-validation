@@ -1,23 +1,17 @@
-jest.mock('../../../../src/services/prisma', () => {
-    const prisma = {
-        cause: {
-            findMany: jest.fn()
-        }
-    };
-    return { prisma: prisma };
-});
-
-
-import { prisma } from '../../../../src/services/prisma';
 import { validateOpportunityCause, validateOpportunityCauseForCSV } from '../../../../src/validations/opportunity/opportunityCause';
+
+const exampleCauses = [
+    { causeName: 'Animal Welfare' },
+    { causeName: 'Human Aid' }
+]
 
 describe('validateOpportunityCause - no database data', () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
     it('should return validation response for invalid causes - none', async () => {
-        (prisma.cause.findMany as jest.Mock).mockResolvedValue([]);
-        const response = await validateOpportunityCauseForCSV('Invalid Cause');
+        
+        const response = await validateOpportunityCauseForCSV('Invalid Cause', []);
         expect(response).toEqual({
             level: 'healing',
             message: 'Opportunity Cause should be one of: ',
@@ -32,22 +26,14 @@ describe('validateOpportunityCause', () => {
         jest.clearAllMocks();
     });
 
-    it('should return true for valid causes', async () => {
-        (prisma.cause.findMany as jest.Mock).mockResolvedValue([
-            { causeName: 'Animal Welfare' },
-            { causeName: 'Human Aid' }
-        ]);
-        expect(await validateOpportunityCause('Animal Welfare')).toBe(true);
-        expect(await validateOpportunityCause('Human Aid')).toBe(true);
+    it('should return true for valid causes', () => {
+        expect(validateOpportunityCause('Animal Welfare', exampleCauses)).toBe(true);
+        expect(validateOpportunityCause('Human Aid', exampleCauses)).toBe(true);
     });
 
-    it('should return false for invalid causes', async () => {
-        (prisma.cause.findMany as jest.Mock).mockResolvedValue([
-            { causeName: 'Animal Welfare' },
-            { causeName: 'Human Aid' }
-        ]);
-        expect(await validateOpportunityCause('Invalid Cause')).toBe(false);
-        expect(await validateOpportunityCause('Another Invalid Cause')).toBe(false);
+    it('should return false for invalid causes', () => {
+        expect(validateOpportunityCause('Invalid Cause', exampleCauses)).toBe(false);
+        expect(validateOpportunityCause('Another Invalid Cause', exampleCauses)).toBe(false);
     });
 });
 
@@ -55,21 +41,13 @@ describe('validateOpportunityCauseForCSV', () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
-    it('should return null for valid causes', async () => {
-        (prisma.cause.findMany as jest.Mock).mockResolvedValue([
-            { causeName: 'Animal Welfare' },
-            { causeName: 'Human Aid' }
-        ]);
-        expect(await validateOpportunityCauseForCSV('Animal Welfare')).toBe(null);
-        expect(await validateOpportunityCauseForCSV('Human Aid')).toBe(null);
+    it('should return null for valid causes', () => {
+        expect(validateOpportunityCauseForCSV('Animal Welfare', exampleCauses)).toBe(null);
+        expect(validateOpportunityCauseForCSV('Human Aid', exampleCauses)).toBe(null);
     });
 
-    it('should return validation response for invalid causes - string', async () => {
-        (prisma.cause.findMany as jest.Mock).mockResolvedValue([
-            { causeName: 'Animal Welfare' },
-            { causeName: 'Human Aid' }
-        ]);
-        const response = await validateOpportunityCauseForCSV('Invalid Cause');
+    it('should return validation response for invalid causes - string', () => {
+        const response = validateOpportunityCauseForCSV('Invalid Cause', exampleCauses);
         expect(response).toEqual({
             level: 'healing',
             message: 'Opportunity Cause should be one of: Animal Welfare, Human Aid',
@@ -77,12 +55,8 @@ describe('validateOpportunityCauseForCSV', () => {
         });
     });
 
-    it('should return validation response for invalid causes - number', async () => {
-        (prisma.cause.findMany as jest.Mock).mockResolvedValue([
-            { causeName: 'Animal Welfare' },
-            { causeName: 'Human Aid' }
-        ]);
-        const response = await validateOpportunityCauseForCSV(123);
+    it('should return validation response for invalid causes - number', () => {
+        const response = validateOpportunityCauseForCSV(123, exampleCauses);
         expect(response).toEqual({
             level: 'healing',
             message: 'Opportunity Cause should be one of: Animal Welfare, Human Aid',
@@ -90,12 +64,8 @@ describe('validateOpportunityCauseForCSV', () => {
         });
     });
 
-    it('should return validation response for invalid causes - null', async () => {
-        (prisma.cause.findMany as jest.Mock).mockResolvedValue([
-            { causeName: 'Animal Welfare' },
-            { causeName: 'Human Aid' }
-        ]);
-        const response = await validateOpportunityCauseForCSV(null);
+    it('should return validation response for invalid causes - null', () => {
+        const response = validateOpportunityCauseForCSV(null, exampleCauses);
         expect(response).toEqual({
             level: 'healing',
             message: 'Opportunity Cause should be one of: Animal Welfare, Human Aid',
