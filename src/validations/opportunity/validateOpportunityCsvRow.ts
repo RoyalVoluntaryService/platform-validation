@@ -1,8 +1,9 @@
 import type { CsvValidatorImportValue, CsvValidatorResponse } from "../../types/csvValidation";
+import { validateOpportunityCauseForCSV } from "./opportunityCause";
 import { validateOpportunityStatusForCSV } from "./opportunityStatus";
 import { validateOpportunityTypeForCSV } from "./opportunityType";
 
-export const validateCsvRowDataAndReturnErrors = (
+export const validateCsvRowDataAndReturnErrors = async (
     // title: string | null, 
     // description: string | null, 
     opportunityType: CsvValidatorImportValue,
@@ -22,27 +23,27 @@ export const validateCsvRowDataAndReturnErrors = (
     // const isFullName = name.split(" ").length > 1;
     const data: {
         opportunityType?: [CsvValidatorResponse];
-        opportunityStatus?: [CsvValidatorResponse];
-        opportunityCause?: [CsvValidatorResponse];
-        opportunityCommitment?: [CsvValidatorResponse];
+        status?: [CsvValidatorResponse];
+        cause?: [CsvValidatorResponse];
+        commitment?: [CsvValidatorResponse];
     } = {
 
     };
     const opportunityTypeValidator = validateOpportunityTypeForCSV(opportunityType)
     const opportunityStatusValidator = validateOpportunityStatusForCSV(status)
-    // const opportunityCauseValidator = validateOpportunityCauseForCSV(cause)
+    const opportunityCauseValidator = await validateOpportunityCauseForCSV(cause)
     // const opportunityCommitmentValidator = validateOpportunityCommitmentForCSV(commitment)
     if (opportunityTypeValidator !== null) {
         data.opportunityType = [opportunityTypeValidator]
     }
     if (opportunityStatusValidator !== null) {
-        data.opportunityStatus = [opportunityStatusValidator]
+        data.status = [opportunityStatusValidator]
     }
-    // if (opportunityCauseValidator !== null) {
-    //     data.opportunityCause = [opportunityCauseValidator]
-    // }
+    if (opportunityCauseValidator !== null) {
+        data.cause = [opportunityCauseValidator]
+    }
     // if (opportunityCommitmentValidator !== null) {
-    //     data.opportunityCommitment = [opportunityCommitmentValidator]
+    //     data.commitment = [opportunityCommitmentValidator]
     // }
     if (Object.keys(data).length !== 0) {
         return data;
