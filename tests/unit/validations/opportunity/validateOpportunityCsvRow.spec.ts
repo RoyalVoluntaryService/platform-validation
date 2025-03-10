@@ -9,7 +9,7 @@ describe('validateDataAndReturnErrors', () => {
     it('should return null when there are no errors', () => {
         const result = validateCsvRowDataAndReturnErrors(
             "In Person" as CsvValidatorImportValue,
-            "COMMITMENT" as CsvValidatorImportValue,
+            "Flexible" as CsvValidatorImportValue,
             "Animal Welfare" as CsvValidatorImportValue,
             "Active" as CsvValidatorImportValue,
             {
@@ -22,7 +22,7 @@ describe('validateDataAndReturnErrors', () => {
     it('should return errors for invalid opportunity type', () => {
         const result = validateCsvRowDataAndReturnErrors(
             "Something Else" as CsvValidatorImportValue,
-            "COMMITMENT" as CsvValidatorImportValue,
+            "Flexible" as CsvValidatorImportValue,
             "Animal Welfare" as CsvValidatorImportValue,
             "Active" as CsvValidatorImportValue,
             {
@@ -35,7 +35,7 @@ describe('validateDataAndReturnErrors', () => {
     it('should return errors for invalid opportunity status', () => {
         const result = validateCsvRowDataAndReturnErrors(
             "In Person" as CsvValidatorImportValue,
-            "COMMITMENT" as CsvValidatorImportValue,
+            "Regular" as CsvValidatorImportValue,
             "Animal Welfare" as CsvValidatorImportValue,
             "None" as CsvValidatorImportValue,
             {
@@ -48,7 +48,7 @@ describe('validateDataAndReturnErrors', () => {
     it('should return errors for invalid opportunity status', () => {
         const result = validateCsvRowDataAndReturnErrors(
             "In Person" as CsvValidatorImportValue,
-            "COMMITMENT" as CsvValidatorImportValue,
+            "Flexible" as CsvValidatorImportValue,
             "Not A Cause" as CsvValidatorImportValue,
             "Active" as CsvValidatorImportValue,
             {

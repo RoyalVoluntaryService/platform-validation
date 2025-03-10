@@ -11,7 +11,7 @@ export const validateOpportunityCause = (cause: string, causes: Pick<Cause, 'cau
 export const validateOpportunityCauseForCSV = (type: string | number | null | undefined, causes: Pick<Cause, 'causeName'>[]): null | CsvValidatorResponse => {
 
 
-    function toReturn(): CsvValidatorResponse {
+    const toReturn = (): CsvValidatorResponse => {
         return getCsvValidationResponse(
             "healing",
             "Opportunity Cause should be one of: " + causes.map(cause => cause.causeName).join(', '),
