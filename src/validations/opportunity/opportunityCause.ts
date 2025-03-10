@@ -38,7 +38,7 @@ export const validateOpportunityCause = async (cause: string): Promise<boolean> 
 export const validateOpportunityCauseForCSV = async (type?: string | number | null): Promise<null | CsvValidatorResponse> => {
     await syncLatestCauses();
 
-    function toReturn(): CsvValidatorResponse {
+    const toReturn = (): CsvValidatorResponse => {
         return getCsvValidationResponse(
             "healing",
             "Opportunity Cause should be one of: " + lastCauses.join(', '),
