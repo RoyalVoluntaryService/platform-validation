@@ -11,7 +11,7 @@ export const validateOpportunityStatus = (type: string): boolean => Object.value
 
 
 export const validateOpportunityStatusForCSV = (type?: string | number | null): null | CsvValidatorResponse => {
-    function toReturn(): CsvValidatorResponse {
+    const toReturn = (): CsvValidatorResponse => {
         return getCsvValidationResponse(
             "healing",
             "Opportunity Status should be one of: " + POSSIBLE_RECORD_STATES.join(', '),

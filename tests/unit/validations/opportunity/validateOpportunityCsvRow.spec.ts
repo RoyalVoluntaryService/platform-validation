@@ -1,13 +1,20 @@
+
 import { validateCsvRowDataAndReturnErrors } from "../../../../src/validations/opportunity/validateOpportunityCsvRow";
 import { CsvValidatorImportValue } from "../../../../src/types/csvValidation";
-
+const exampleCauses = [
+    { causeName: 'Animal Welfare' },
+    { causeName: 'Human Aid' }
+]
 describe('validateDataAndReturnErrors', () => {
     it('should return null when there are no errors', () => {
         const result = validateCsvRowDataAndReturnErrors(
             "In Person" as CsvValidatorImportValue,
-            "COMMITMENT" as CsvValidatorImportValue,
-            "CAUSE" as CsvValidatorImportValue,
-            "Active" as CsvValidatorImportValue
+            "Flexible" as CsvValidatorImportValue,
+            "Animal Welfare" as CsvValidatorImportValue,
+            "Active" as CsvValidatorImportValue,
+            {
+                causes: exampleCauses
+            }
         );
         expect(result).toBeNull();
     });
@@ -15,9 +22,12 @@ describe('validateDataAndReturnErrors', () => {
     it('should return errors for invalid opportunity type', () => {
         const result = validateCsvRowDataAndReturnErrors(
             "Something Else" as CsvValidatorImportValue,
-            "COMMITMENT" as CsvValidatorImportValue,
-            "CAUSE" as CsvValidatorImportValue,
-            "Active" as CsvValidatorImportValue
+            "Flexible" as CsvValidatorImportValue,
+            "Animal Welfare" as CsvValidatorImportValue,
+            "Active" as CsvValidatorImportValue,
+            {
+                causes: exampleCauses
+            }
         );
         expect(result).toHaveProperty('opportunityType');
     });
@@ -25,12 +35,39 @@ describe('validateDataAndReturnErrors', () => {
     it('should return errors for invalid opportunity status', () => {
         const result = validateCsvRowDataAndReturnErrors(
             "In Person" as CsvValidatorImportValue,
-            "COMMITMENT" as CsvValidatorImportValue,
-            "CAUSE" as CsvValidatorImportValue,
-            "None" as CsvValidatorImportValue
+            "Regular" as CsvValidatorImportValue,
+            "Animal Welfare" as CsvValidatorImportValue,
+            "None" as CsvValidatorImportValue,
+            {
+                causes: exampleCauses
+            }
         );
-        expect(result).toHaveProperty('opportunityStatus');
+        expect(result).toHaveProperty('status');
     });
 
-    // Add more tests as needed
+    it('should return errors for invalid opportunity status', () => {
+        const result = validateCsvRowDataAndReturnErrors(
+            "In Person" as CsvValidatorImportValue,
+            "Flexible" as CsvValidatorImportValue,
+            "Not A Cause" as CsvValidatorImportValue,
+            "Active" as CsvValidatorImportValue,
+            {
+                causes: exampleCauses
+            }
+        );
+        expect(result).toHaveProperty('cause');
+    });
+
+    it('should return errors for invalid opportunity commitment', () => {
+        const result = validateCsvRowDataAndReturnErrors(
+            "In Person" as CsvValidatorImportValue,
+            "Never" as CsvValidatorImportValue,
+            "Animal Welfare" as CsvValidatorImportValue,
+            "Active" as CsvValidatorImportValue,
+            {
+                causes: exampleCauses
+            }
+        );
+        expect(result).toHaveProperty('commitment');
+    });
 });
