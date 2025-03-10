@@ -1,5 +1,6 @@
 import type { CsvValidatorImportValue, CsvValidatorResponse } from "../../types/csvValidation";
 import { validateOpportunityCauseForCSV } from "./opportunityCause";
+import { validateOpportunityCommitmentForCSV } from "./opportunityCommitment";
 import { validateOpportunityStatusForCSV } from "./opportunityStatus";
 import { validateOpportunityTypeForCSV } from "./opportunityType";
 
@@ -32,7 +33,7 @@ export const validateCsvRowDataAndReturnErrors = async (
     const opportunityTypeValidator = validateOpportunityTypeForCSV(opportunityType)
     const opportunityStatusValidator = validateOpportunityStatusForCSV(status)
     const opportunityCauseValidator = await validateOpportunityCauseForCSV(cause)
-    // const opportunityCommitmentValidator = validateOpportunityCommitmentForCSV(commitment)
+    const opportunityCommitmentValidator = validateOpportunityCommitmentForCSV(commitment)
     if (opportunityTypeValidator !== null) {
         data.opportunityType = [opportunityTypeValidator]
     }
@@ -42,9 +43,9 @@ export const validateCsvRowDataAndReturnErrors = async (
     if (opportunityCauseValidator !== null) {
         data.cause = [opportunityCauseValidator]
     }
-    // if (opportunityCommitmentValidator !== null) {
-    //     data.commitment = [opportunityCommitmentValidator]
-    // }
+    if (opportunityCommitmentValidator !== null) {
+        data.commitment = [opportunityCommitmentValidator]
+    }
     if (Object.keys(data).length !== 0) {
         return data;
     }
