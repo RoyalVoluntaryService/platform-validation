@@ -1,6 +1,6 @@
 {
   "name": "@royal-voluntary-service/validation",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Royal Voluntary Service Validation Package",
   "private": false,
   "publishConfig": {
