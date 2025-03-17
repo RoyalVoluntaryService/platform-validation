@@ -1,12 +1,13 @@
-import { Cause } from "@prisma/client";
-import type { CsvValidatorImportValue, CsvValidatorResponse } from "../../types/csvValidation";
+
+import type { CsvCauseInput, CsvValidatorImportValue, CsvValidatorResponse } from "../../types/csvValidation";
 import { validateOpportunityCauseForCSV } from "./opportunityCause";
 import { validateOpportunityCommitmentForCSV } from "./opportunityCommitment";
 import { validateOpportunityStatusForCSV } from "./opportunityStatus";
 import { validateOpportunityTypeForCSV } from "./opportunityType";
 import { validateBooleanForCSV } from "../primitive/boolean";
 
-export const validateCsvRowDataAndReturnErrors = (
+
+export const validateCsvRowDataAndReturnErrors =<T extends CsvCauseInput> (
     // title: CsvValidatorImportValue,
     // description: CsvValidatorImportValue,
     opportunityType: CsvValidatorImportValue,
@@ -22,7 +23,10 @@ export const validateCsvRowDataAndReturnErrors = (
     trainingRequired: CsvValidatorImportValue,
     // ageRequirement: CsvValidatorImportValue,
     inputData: {
-        causes: Pick<Cause, 'causeName'>[]
+        causes: T[]
+        commitments: Record<string, string>,
+        opportunityTypes: Record<string, string>,
+        statuses: Record<string, string>
     }
 ) => {
     const data: {
@@ -43,10 +47,10 @@ export const validateCsvRowDataAndReturnErrors = (
     } = {
 
     };
-    const opportunityTypeValidator = validateOpportunityTypeForCSV(opportunityType)
-    const opportunityStatusValidator = validateOpportunityStatusForCSV(status)
+    const opportunityTypeValidator = validateOpportunityTypeForCSV(opportunityType, inputData.opportunityTypes)
+    const opportunityStatusValidator = validateOpportunityStatusForCSV(status, inputData.statuses)
     const opportunityCauseValidator = validateOpportunityCauseForCSV(cause, inputData.causes)
-    const opportunityCommitmentValidator = validateOpportunityCommitmentForCSV(commitment)
+    const opportunityCommitmentValidator = validateOpportunityCommitmentForCSV(commitment, inputData.commitments)
     const dbsCheckValidator = validateBooleanForCSV(dbsCheck)
     const trainingRequiredValidator = validateBooleanForCSV(trainingRequired)
     if (opportunityTypeValidator !== null) {

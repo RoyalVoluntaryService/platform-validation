@@ -7,3 +7,7 @@ export type CsvValidatorResponse = {
     message: string;
     newValue: string;
 }
+
+export type CsvCauseInput = {
+    causeName: string;
+}

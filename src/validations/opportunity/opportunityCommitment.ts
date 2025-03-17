@@ -1,16 +1,16 @@
-import { OpportunityCommitment } from "@prisma/client";
 import { getAllValidCase, toHumanString, toSentenceCase } from "../../utils/string";
 import type { CsvValidatorResponse } from "../../types/csvValidation";
 import { getCsvValidationResponse } from "../../utils/csvValidation";
 
-const DEFAULT_OPPORTUNITY_COMMITMENT = OpportunityCommitment.REGULAR;
 
-export const POSSIBLE_OPPORTUNITY_COMMITMENTS = Object.values(OpportunityCommitment).map(type => toSentenceCase(toHumanString(type)));
-
-export const validateOpportunityCommitment = (type: string): boolean => Object.values(OpportunityCommitment).map((val) => getAllValidCase(val)).flat().includes(type)
+export const validateOpportunityCommitment = (type: string, values: string[]): boolean => values.map((val) => getAllValidCase(val)).flat().includes(type)
 
 
-export const validateOpportunityCommitmentForCSV = (type?: string | number | null): null | CsvValidatorResponse => {
+export const validateOpportunityCommitmentForCSV = (type: string | number | null | undefined, opportunityCommitments: Record<string, string>): null | CsvValidatorResponse => {
+    const OPPORTUNITY_COMMITMENT_VALUES = Object.values(opportunityCommitments);
+    const DEFAULT_OPPORTUNITY_COMMITMENT = OPPORTUNITY_COMMITMENT_VALUES[0];
+    const POSSIBLE_OPPORTUNITY_COMMITMENTS = OPPORTUNITY_COMMITMENT_VALUES.map(type => toSentenceCase(toHumanString(type)));
+    
     const toReturn = (): CsvValidatorResponse => {
         return getCsvValidationResponse(
             "healing",
@@ -21,7 +21,7 @@ export const validateOpportunityCommitmentForCSV = (type?: string | number | nul
     if (!type || typeof type === "number") {
         return toReturn()
     }
-    const isValidCase = validateOpportunityCommitment(type)
+    const isValidCase = validateOpportunityCommitment(type, OPPORTUNITY_COMMITMENT_VALUES)
     if (!isValidCase) {
         return toReturn()
     }

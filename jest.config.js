@@ -21,5 +21,5 @@ module.exports = {
           outputPath: './coverage/report.html',
         },
       ],
-    ],
+    ]
   };

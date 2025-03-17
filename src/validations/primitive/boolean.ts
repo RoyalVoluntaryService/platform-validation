@@ -1,4 +1,4 @@
-import { getAllValidCase, toHumanString, toSentenceCase } from "../../utils/string";
+import { toHumanString, toSentenceCase } from "../../utils/string";
 import type { CsvValidatorResponse } from "../../types/csvValidation";
 import { getCsvValidationResponse } from "../../utils/csvValidation";
 
@@ -28,7 +28,7 @@ const possibleBooleans = [
     ...booleanData["true"],
     ...booleanData["false"]
 ]
-console.log(possibleBooleans)
+
 const possibleBooleansToReturn = Object.keys(booleanData)
 
 const DEFAULT_BOOLEAN = possibleBooleansToReturn[0];
