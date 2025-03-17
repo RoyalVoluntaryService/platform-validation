@@ -1,6 +1,6 @@
-export * from './opportunity/opportunityCause';
-export * from './opportunity/opportunityCommitment';
-export * from './opportunity/opportunityStatus';
-export * from './opportunity/opportunityType';
-export * from './opportunity/validateOpportunityCsvRow';
-export * from './primitive/boolean';
+export {validateOpportunityCause, validateOpportunityCauseForCSV} from './opportunity/opportunityCause';
+export {validateOpportunityCommitment, validateOpportunityCommitmentForCSV} from './opportunity/opportunityCommitment';
+export {validateOpportunityStatus, validateOpportunityStatusForCSV} from './opportunity/opportunityStatus';
+export {validateOpportunityType, validateOpportunityTypeForCSV} from './opportunity/opportunityType';
+export {validateCsvRowDataAndReturnErrors} from './opportunity/validateOpportunityCsvRow';
+export {validateBoolean, validateBooleanForCSV} from './primitive/boolean';
