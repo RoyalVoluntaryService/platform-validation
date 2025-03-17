@@ -1,1 +1,5 @@
-export * from './csvValidation';
+export type {
+    CsvValidatorImportValue,
+    CsvValidatorResponse,
+    CsvValidatorResponseLevel
+} from './csvValidation';
