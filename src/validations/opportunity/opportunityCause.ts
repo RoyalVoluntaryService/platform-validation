@@ -1,14 +1,13 @@
-import type { Cause } from "@prisma/client";
-import type { CsvValidatorResponse } from "../../types/csvValidation";
+import type { CsvCauseInput, CsvValidatorResponse } from "../../types/csvValidation";
 import { getCsvValidationResponse } from "../../utils/csvValidation";
 import { toSentenceCase, toHumanString } from "../../utils/string";
 
 
-export const validateOpportunityCause = (cause: string, causes: Pick<Cause, 'causeName'>[]): boolean => {
+export const validateOpportunityCause = <T extends CsvCauseInput>(cause: string, causes: T[]): boolean => {
     return causes.map(cause => cause.causeName).includes(cause);
 };
 
-export const validateOpportunityCauseForCSV = (type: string | number | null | undefined, causes: Pick<Cause, 'causeName'>[]): null | CsvValidatorResponse => {
+export const validateOpportunityCauseForCSV = <T extends CsvCauseInput>(type: string | number | null | undefined, causes: T[]): null | CsvValidatorResponse => {
 
 
     const toReturn = (): CsvValidatorResponse => {
@@ -21,7 +20,7 @@ export const validateOpportunityCauseForCSV = (type: string | number | null | un
     if (!type || typeof type === "number") {
         return toReturn()
     }
-    const isValidCase = validateOpportunityCause(type, causes)
+    const isValidCase = validateOpportunityCause<T>(type, causes)
     if (!isValidCase) {
         return toReturn()
     }

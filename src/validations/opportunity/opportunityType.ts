@@ -1,16 +1,16 @@
-import { OpportunityType } from "@prisma/client";
 import { getAllValidCase, toHumanString, toSentenceCase } from "../../utils/string";
 import type { CsvValidatorResponse } from "../../types/csvValidation";
 import { getCsvValidationResponse } from "../../utils/csvValidation";
 
-const DEFAULT_OPPORTUNITY_TYPE = OpportunityType.IN_PERSON;
 
-export const POSSIBLE_OPPORTUNITY_TYPES = Object.values(OpportunityType).map(type => toSentenceCase(toHumanString(type)));
-
-export const validateOpportunityType = (type: string): boolean => Object.values(OpportunityType).map((val) => getAllValidCase(val)).flat().includes(type)
+export const validateOpportunityType = (type: string, values: string[]): boolean => values.map((val) => getAllValidCase(val)).flat().includes(type)
 
 
-export const validateOpportunityTypeForCSV = (type?: string | number | null): null | CsvValidatorResponse => {
+export const validateOpportunityTypeForCSV = (type: string | number | null | undefined, opportunityTypes: Record<string, string>): null | CsvValidatorResponse => {
+    const OPPORTUNITY_TYPES_VALUES = Object.values(opportunityTypes);
+    const DEFAULT_OPPORTUNITY_TYPE = OPPORTUNITY_TYPES_VALUES[0];
+    const POSSIBLE_OPPORTUNITY_TYPES = OPPORTUNITY_TYPES_VALUES.map(type => toSentenceCase(toHumanString(type)));
+    
     const toReturn = (): CsvValidatorResponse => {
         return getCsvValidationResponse(
             "healing",
@@ -21,7 +21,7 @@ export const validateOpportunityTypeForCSV = (type?: string | number | null): nu
     if (!type || typeof type === "number") {
         return toReturn()
     }
-    const isValidCase = validateOpportunityType(type)
+    const isValidCase = validateOpportunityType(type, OPPORTUNITY_TYPES_VALUES)
     if (!isValidCase) {
         return toReturn()
     }

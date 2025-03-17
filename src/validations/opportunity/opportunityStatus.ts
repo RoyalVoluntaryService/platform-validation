@@ -1,16 +1,15 @@
-import { RecordState } from "@prisma/client";
 import { getAllValidCase, toHumanString, toSentenceCase } from "../../utils/string";
 import { getCsvValidationResponse } from "../../utils/csvValidation";
 import type { CsvValidatorResponse } from "../../types/csvValidation";
 
-const DEFAULT_RECORD_STATE = RecordState.INACTIVE;
 
-export const POSSIBLE_RECORD_STATES = Object.values(RecordState).map(type => toSentenceCase(toHumanString(type)));
+export const validateOpportunityStatus = (type: string, values: string[]): boolean => values.map((val) => getAllValidCase(val)).flat().includes(type)
 
-export const validateOpportunityStatus = (type: string): boolean => Object.values(RecordState).map((val) => getAllValidCase(val)).flat().includes(type)
+export const validateOpportunityStatusForCSV = (type: string | number | null | undefined, opportunityStatuses: Record<string, string>): null | CsvValidatorResponse => {
+    const RECORD_STATE_VALUES = Object.values(opportunityStatuses);
+    const DEFAULT_RECORD_STATE = RECORD_STATE_VALUES[0];
+    const POSSIBLE_RECORD_STATES = RECORD_STATE_VALUES.map(type => toSentenceCase(toHumanString(type)));
 
-
-export const validateOpportunityStatusForCSV = (type?: string | number | null): null | CsvValidatorResponse => {
     const toReturn = (): CsvValidatorResponse => {
         return getCsvValidationResponse(
             "healing",
@@ -21,7 +20,7 @@ export const validateOpportunityStatusForCSV = (type?: string | number | null): 
     if (!type || typeof type === "number") {
         return toReturn()
     }
-    const isValidCase = validateOpportunityStatus(type)
+    const isValidCase = validateOpportunityStatus(type, RECORD_STATE_VALUES)
     if (!isValidCase) {
         return toReturn()
     }
