@@ -21,8 +21,5 @@ module.exports = {
           outputPath: './coverage/report.html',
         },
       ],
-    ],
-    moduleNameMapper: {
-      "^@prisma/client$": "<rootDir>/tests/__mocks__/@prisma/client.ts",
-    },
+    ]
   };
