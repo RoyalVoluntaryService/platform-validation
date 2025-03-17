@@ -34,6 +34,14 @@
     "./opportunity/validateOpportunityCsvRow": {
       "import": "./dist/validations/opportunity/validateOpportunityCsvRow.js",
       "types": "./dist/validations/opportunity/validateOpportunityCsvRow.d.ts"
+    },
+    "./primitive/boolean": {
+      "import": "./dist/validations/primitive/boolean.js",
+      "types": "./dist/validations/primitive/boolean.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types/index.js",
+      "types": "./dist/types/index.d.ts"
     }
   },
   "files": [
