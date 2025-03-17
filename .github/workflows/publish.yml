@@ -52,6 +52,9 @@ jobs:
           git commit -m "chore: version bump" || echo "No changes to commit"
           git push --follow-tags origin main
 
+      - name: Check dist folder before publish
+        run: ls dist
+
       - name: Publish to npm
         run: pnpm publish --access=public
         env:
