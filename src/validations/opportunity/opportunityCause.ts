@@ -1,4 +1,4 @@
-import { Cause } from "@prisma/client";
+import type { Cause } from "@prisma/client";
 import type { CsvValidatorResponse } from "../../types/csvValidation";
 import { getCsvValidationResponse } from "../../utils/csvValidation";
 import { toSentenceCase, toHumanString } from "../../utils/string";
