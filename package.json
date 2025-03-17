@@ -25,7 +25,9 @@
     }
   },
   "files": [
-    "dist",
+    "dist/validations",
+    "dist/types",
+    "dist/utils",
     "README.md",
     "package.json"
   ],
