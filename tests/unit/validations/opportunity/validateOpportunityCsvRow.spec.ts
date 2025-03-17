@@ -6,6 +6,21 @@ const exampleCauses = [
     { causeName: 'Human Aid' }
 ]
 
+const exampleOpportunityTypes = {
+    "REMOTE": "Remote",
+    "IN_PERSON": "In person",
+}
+
+const exampleCommitments = {
+    "FLEXIBLE": "Flexible",
+    "REGULAR": "Regular",
+}
+
+const exampleStatuses = {
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive",
+}
+
 const validCsvRowData = {
     opportunityType: "In Person" as CsvValidatorImportValue,
     commitment: "Flexible" as CsvValidatorImportValue,
@@ -14,7 +29,10 @@ const validCsvRowData = {
     dbsCheck: "true" as CsvValidatorImportValue,
     trainingRequired: "false" as CsvValidatorImportValue,
     inputData: {
-        causes: exampleCauses
+        causes: exampleCauses,
+        commitments: exampleCommitments,
+        opportunityTypes: exampleOpportunityTypes,
+        statuses: exampleStatuses
     }
 }
 
