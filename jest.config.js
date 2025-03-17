@@ -22,4 +22,7 @@ module.exports = {
         },
       ],
     ],
+    moduleNameMapper: {
+      "^@prisma/client$": "<rootDir>/tests/__mocks__/@prisma/client.ts",
+    },
   };
