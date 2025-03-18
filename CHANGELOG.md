@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.16](https://github.com/RoyalVoluntaryService/platform-validation/compare/v0.0.15...v0.0.16) (2025-03-18)
+
+
+### Features
+
+* add barrel exports for types, utils, and validations with corresponding tests ([8efd4bd](https://github.com/RoyalVoluntaryService/platform-validation/commit/8efd4bdff72b1f91da61243a72bd32791904a361))
+
 ### 0.0.15 (2025-03-17)
 
 ### 0.0.14 (2025-03-17)
